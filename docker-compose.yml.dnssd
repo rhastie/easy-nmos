@@ -1,0 +1,99 @@
+version: '3'
+services:
+  # Create DNS/DHCP container instance
+#  dhcp-dns:
+#    image: rhastie/webmin-dhcp-dns:easynmos
+#    container_name: dhcp-dns
+#    ports:
+#    - "10000:10000"
+#    networks:
+#      private-nmos:
+#        ipv4_address: '172.30.101.2'
+
+  # Delay starting of NMOS services until DHCP/DNS is correctly up and alive
+#  start_dependencies:
+#    image: dadarek/wait-for-dependencies
+#    container_name: start_dependencies
+#    depends_on:
+#      - dhcp-dns
+#    command: dhcp-dns:10000 dhcp-dns:53
+#    networks:
+#      private-nmos:
+#        ipv4_address: '172.30.101.10'
+
+  # Create registry container instance
+  registry:
+    image: rhastie/nmos-cpp:0.1S-9207228
+    container_name: nmos-registry
+    ports:
+    - "8010:8010"
+    volumes:
+    - "./registry-json:/home/registry-json"
+    environment:
+    - RUN_NODE=FALSE
+    networks: 
+      private-nmos:
+        ipv4_address: '172.30.101.3'
+    dns:
+    - 9.9.9.9
+    - 192.168.6.12
+    dns_search: nmos.tv
+#    depends_on:
+#    - start_dependencies
+
+  # Create node container instance
+  virtnode:
+    image: rhastie/nmos-cpp:0.1S-9207228
+    container_name: nmos-virtnode
+    ports:
+    - "11000:11000"
+    volumes:
+    - "./node-json:/home/node-json"
+    environment:
+    - RUN_NODE=TRUE
+    networks:
+      private-nmos:
+        ipv4_address: '172.30.101.4'
+      external:
+        ipv4_address: '192.168.6.101'
+    dns:
+    - 9.9.9.9
+    - 192.168.6.12
+    dns_search: nmos.tv
+    depends_on:
+    - registry    
+
+  # Create AMWA-TV NMOS Testing container instance
+  nmostesting:
+    image: amwa/nmos-testing
+    container_name: nmos-testing
+    ports:
+    - "5000:5000"
+    volumes:
+    - "./Config.py:/config/Config.py"
+    networks:
+      private-nmos:
+        ipv4_address: '172.30.101.5'
+    dns:
+    - 9.9.9.9
+    - 192.168.6.12
+    dns_search: nmos.tv
+    depends_on:
+    - virtnode
+
+
+networks:
+    private-nmos:
+        # Create private network for inter-comtainer NMOS communications
+        driver: bridge
+        ipam:
+            config:
+            - subnet: 172.30.101.1/24
+
+    external:
+        driver: macvlan
+        driver_opts:
+            parent: ens33
+        ipam:
+            config:
+            - subnet: 192.168.6.1/24
