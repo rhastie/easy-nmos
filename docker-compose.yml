@@ -20,7 +20,6 @@ services:
     container_name: nmos-virtnode
     ports:
     - "11000-11001:11000-11001"
-    - "12000:12000"
     volumes:
     - "./node.json:/home/node.json"
     environment:
