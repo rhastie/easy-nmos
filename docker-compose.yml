@@ -5,9 +5,9 @@ services:
     image: rhastie/nmos-cpp:dev
     container_name: nmos-registry
     ports:
-    - "8010:8010"
+    - "8010-8011:8010-8011"
     volumes:
-    - "./registry-json:/home/registry-json"
+    - "./registry.json:/home/registry.json"
     environment:
     - RUN_NODE=FALSE
     networks: 
@@ -19,9 +19,10 @@ services:
     image: rhastie/nmos-cpp:dev
     container_name: nmos-virtnode
     ports:
-    - "11000:11000"
+    - "11000-11001:11000-11001"
+    - "12000:12000"
     volumes:
-    - "./node-json:/home/node-json"
+    - "./node.json:/home/node.json"
     environment:
     - RUN_NODE=TRUE
     networks:

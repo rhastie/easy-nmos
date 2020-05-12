@@ -1,9 +1,8 @@
 {
 "pri": 10,
-"logging_level": 0,
-"allow_invalid_resources": false,
+"logging_level": -20,
 "http_trace": false,
-"label": "mellanox_container",
+"label": "easy-nmos-registry",
 "http_port": 8010,
 "query_ws_port": 8011,
 "registration_expiry_interval": 12

@@ -1,8 +1,0 @@
-{
-"logging_level": 0,
-"registration_port": 8010,
-"http_port": 11000,
-"label": "mellanox-container-node",
-"logging_port": 12000,
-"how_many": 2
-}
