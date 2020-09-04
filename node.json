@@ -2,6 +2,7 @@
 "logging_level": -20,
 "http_port": 11000,
 "events_ws_port": 11001,
+"domain": "local",
 "label": "easy-nmos-node",
 "how_many": 2
 }

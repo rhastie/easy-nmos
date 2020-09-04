@@ -2,7 +2,7 @@ version: '3'
 services:
   # Create registry container instance
   registry:
-    image: rhastie/nmos-cpp:dev
+    image: rhastie/nmos-cpp:latest
     container_name: nmos-registry
     ports:
     - "8010-8011:8010-8011"
@@ -16,7 +16,7 @@ services:
 
   # Create node container instance
   virtnode:
-    image: rhastie/nmos-cpp:dev
+    image: rhastie/nmos-cpp:latest
     container_name: nmos-virtnode
     ports:
     - "11000-11001:11000-11001"
