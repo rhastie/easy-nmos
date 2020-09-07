@@ -1,4 +1,4 @@
-version: '3'
+version: '3.6'
 services:
   # Create registry container instance
   registry:
@@ -6,6 +6,7 @@ services:
     container_name: nmos-registry
     ports:
     - "8010-8011:8010-8011"
+    - "1883:1883"
     volumes:
     - "./registry.json:/home/registry.json"
     environment:
@@ -42,7 +43,7 @@ services:
     - "./Config.py:/config/Config.py"
     networks:
       private-nmos:
-        ipv4_address: '172.30.101.5'
+#        ipv4_address: '172.30.101.5'
     depends_on:
     - virtnode
 
