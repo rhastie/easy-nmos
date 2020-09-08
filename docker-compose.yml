@@ -1,9 +1,10 @@
 version: '3.6'
 services:
   # Create registry container instance
-  registry:
+  nmos-registry:
     image: rhastie/nmos-cpp:latest
     container_name: nmos-registry
+    hostname: nmos-registry
     ports:
     - "8010-8011:8010-8011"
     - "1883:1883"
@@ -14,11 +15,14 @@ services:
     networks: 
       private-nmos:
         ipv4_address: '172.30.101.3'
+      external:
+        ipv4_address: '192.168.6.101'
 
   # Create node container instance
-  virtnode:
+  nmos-virtnode:
     image: rhastie/nmos-cpp:latest
     container_name: nmos-virtnode
+    hostname: nmos-virtnode
     ports:
     - "11000-11001:11000-11001"
     volumes:
@@ -29,23 +33,31 @@ services:
       private-nmos:
         ipv4_address: '172.30.101.4'
       external:
-        ipv4_address: '192.168.6.101'
+        ipv4_address: '192.168.6.102'
     depends_on:
-    - registry    
+    - nmos-registry    
 
   # Create AMWA-TV NMOS Testing container instance
-  nmostesting:
+  nmos-testing:
     image: amwa/nmos-testing
     container_name: nmos-testing
+    hostname: nmos-testing
+    entrypoint: |
+      /bin/sh -c "apk add avahi; 
+      sed -i 's/#enable-dbus=yes/enable-dbus=no/g' /etc/avahi/avahi-daemon.conf;
+      avahi-daemon -D;
+      python3 nmos-test.py"
     ports:
     - "5000:5000"
     volumes:
     - "./Config.py:/config/Config.py"
     networks:
       private-nmos:
-#        ipv4_address: '172.30.101.5'
+        ipv4_address: '172.30.101.5'
+      external:
+        ipv4_address: '192.168.6.103'
     depends_on:
-    - virtnode
+    - nmos-virtnode
 
 
 networks:
