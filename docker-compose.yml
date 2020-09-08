@@ -1,6 +1,8 @@
 version: '3.6'
+
 services:
-  # Create registry container instance
+
+  # Create NMOS Registry/Controller container instance
   nmos-registry:
     image: rhastie/nmos-cpp:latest
     container_name: nmos-registry
@@ -18,7 +20,7 @@ services:
       external:
         ipv4_address: '192.168.6.101'
 
-  # Create node container instance
+  # Create NMOS Virtual Node container instance
   nmos-virtnode:
     image: rhastie/nmos-cpp:latest
     container_name: nmos-virtnode
@@ -37,14 +39,16 @@ services:
     depends_on:
     - nmos-registry    
 
-  # Create AMWA-TV NMOS Testing container instance
+  # Create AMWA NMOS Testing container instance
   nmos-testing:
     image: amwa/nmos-testing
     container_name: nmos-testing
     hostname: nmos-testing
     entrypoint: |
-      /bin/sh -c "apk add avahi; 
-      sed -i 's/#enable-dbus=yes/enable-dbus=no/g' /etc/avahi/avahi-daemon.conf;
+      /bin/sh -c "apk add avahi dbus;
+      dbus-uuidgen > /var/lib/dbus/machine-id;
+      mkdir -p /var/run/dbus;
+      dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address;
       avahi-daemon -D;
       python3 nmos-test.py"
     ports:
@@ -52,8 +56,9 @@ services:
     volumes:
     - "./Config.py:/config/Config.py"
     networks:
-      private-nmos:
-        ipv4_address: '172.30.101.5'
+# Temporary WA - Force container to only have a single interface so mDNS advertisements test correctly - See: https://github.com/AMWA-TV/nmos-testing/issues/214
+#     private-nmos:
+#       ipv4_address: '172.30.101.5'
       external:
         ipv4_address: '192.168.6.103'
     depends_on:
@@ -67,7 +72,7 @@ networks:
         ipam:
             config:
             - subnet: 172.30.101.1/24
-
+        # Create external macvlan subnet using host physical interface allowing containers to have their own IP addresses
     external:
         driver: macvlan
         driver_opts:
