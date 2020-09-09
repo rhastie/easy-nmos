@@ -1,8 +1,10 @@
 # Easy-NMOS Docker Compose Solution - INCOMPLETE INSTRUCTIONS
 
-Currently only works on Linux (not Windows / Mac) due to the use of the macvlan driver to expose the container IPs - I'm looking at potentially using a network bridge to alleviate this issue but that requires some further work.
+Currently only works on Linux (not Windows / Mac) due to the use of the macvlan driver to expose the container IP addresses - I'm looking at potentially using a network bridge to alleviate this issue but that requires some further work.
 
 ## Brief installation instructions (needs further work)
+### 0. Clone this repository locally or download and unpack the [archive](https://github.com/rhastie/easy-nmos/archive/master.zip)
+
 ### 1. Install Docker and Docker Compose
 Install needed script dependencies using your package manager:
 
@@ -43,7 +45,7 @@ Docker provides convenience scripts at [get.docker.com](https://get.docker.com) 
 - Do not use the convenience script if Docker has already been installed on the host machine using another mechanism.
 
 ### 2. Configure Compose IP addresses for your environment
-You will need 3 unused IP addresses that all reside in the same subnet as the your IP address. The docker-compose script by default starts all the containers with an external facing IP addresses so that they are easily accessible from your LAN
+You will need 3 unused IP addresses that all reside in the same subnet as the host IP address. The docker-compose script by default starts all the containers with an external facing IP addresses so that they are easily accessible from your LAN
 
 Configure the following inside the "docker-compose.yml" file
 - Set a valid IP address for the NMOS Registry/Controller to be exposed on. Replace 192.168.6.101 with something unused and appropriate in the "Create nmos-registry container instance" section
@@ -51,11 +53,11 @@ Configure the following inside the "docker-compose.yml" file
 - Set a valid IP address for the AMWA NMOS Testing Tool to be exposed on. Replace 192.168.6.103 with something unused and appropriate in the "Create nmos-testing container instance"
 section
 - Adjust the network interface to use your specific host interface. Replace the "parent: ens33" to match your external facing interface in the "external" section at the end of the file
-- Adjust the external subnet to use. Replace the "subnet: 192.168.6.1/24" so that it correctly sets the subnet for the IP addresses you've defined above in the "external" section at the end of the file
+- Adjust the external subnet to use. Replace the "subnet: 192.168.6.0/24" so that it correctly sets the subnet for the IP addresses you've defined above in the "external" section at the end of the file
 - Note: In order for the Node to be correctly accessible the IP address specified must be different to the host IP address
 
 ### 3. Start Docker Compose to start Easy NMOS
-You should just be able to "docker-compose up" and then access the relevant host IP address and port
+You should just be able to `docker-compose up` and then access the relevant host IP address and port
 
 ## Quick Start Guide
 ### Default Ports and mDNS hostnames
@@ -63,35 +65,35 @@ Default Container mDNS hostnames:
 
 - NMOS Registry/Controller/MQTT Broker - Use "nmos-registry.local"
 - NMOS Virtual Node - Use "nmos-virtnode.local"
-- AMWA NMOS API Testing Tool - Use "nmos-testing.local"
+- AMWA NMOS Testing Tool - Use "nmos-testing.local"
 
 Default Ports that are opened:
 
 - NMOS Registry/Controller on port 8010
 - NMOS Virtual Node on port 11000
-- AMWA NMOS API Testing Tool on port 5000
+- AMWA NMOS Testing Tool on port 5000
 - MQTT Broker on port 1883
 
 ### How to Browse to respective NMOS services and tools
-Assuming your client device is correctly supporting mDNS and is on the same LAN as the host running the containers you should be able to use the mDNS hostnames. If this does not work please try the respecive IP addresses etc.
+Assuming your client device is correctly supporting mDNS and is on the same LAN as the host running the containers you should be able to use the mDNS hostnames. If this does not work please try the respective IP addresses etc.
 
 Browse to the NMOS Controller
-```sh
+```
 http://nmos-registry.local:8010/admin
 ```
 
 Browse to the AMWA NMOS Testing Tool
-```sh
+```
 http://nmos-testing.local:5000
 ```
 
 Browse to the JSON Output of the NMOS Registry
-```sh
+```
 http://nmos-registry.local:8010/x-nmos
 ```
 
 Browse to the JSON Output of the NMOS Node
-```sh
+```
 http://nmos-virtnode.local:11000/x-nmos
 ```
 
