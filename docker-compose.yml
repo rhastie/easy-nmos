@@ -67,16 +67,16 @@ services:
 
 networks:
     private-nmos:
-        # Create private network for inter-comtainer NMOS communications
+        # Create private network for inter-container NMOS communications
         driver: bridge
         ipam:
             config:
             - subnet: 172.30.101.1/24
-        # Create external macvlan subnet using host physical interface allowing containers to have their own IP addresses
     external:
+        # Create external macvlan subnet using host physical interface allowing containers to have their own IP addresses
         driver: macvlan
         driver_opts:
             parent: ens33
         ipam:
             config:
-            - subnet: 192.168.6.1/24
+            - subnet: 192.168.6.0/24
