@@ -5,7 +5,7 @@ CMD=${1:-enable}
 enable () {
   echo "Attempting to enable registration API on nmos-registry"
 
-  curl http://nmos-registry.local:8010/settings/all -X PATCH -H "Content-Type: application/json" -d "{\"registration_available\":true}"
+  curl http://nmos-registry.local/settings/all -X PATCH -H "Content-Type: application/json" -d "{\"registration_available\":true}"
   if [ $? -eq 0 ]; then
     echo -e "\nOK - Successfully enabled"
   else
@@ -16,7 +16,7 @@ enable () {
 disable () {
   echo "Attempting to disable registration API on nmos-registry"
 
-  curl http://nmos-registry.local:8010/settings/all -X PATCH -H "Content-Type: application/json" -d "{\"registration_available\":false}"
+  curl http://nmos-registry.local/settings/all -X PATCH -H "Content-Type: application/json" -d "{\"registration_available\":false}"
   if [ $? -eq 0 ]; then
     echo -e "\nOK - Successfully disabled"
   else
