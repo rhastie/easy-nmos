@@ -69,8 +69,8 @@ Default Container mDNS hostnames:
 
 Default Ports that are opened:
 
-- NMOS Registry/Controller on port 8010
-- NMOS Virtual Node on port 11000
+- NMOS Registry/Controller on port 80
+- NMOS Virtual Node on port 80
 - AMWA NMOS Testing Tool on port 5000
 - MQTT Broker on port 1883
 
@@ -79,22 +79,22 @@ Assuming your client device is correctly supporting mDNS and is on the same LAN 
 
 Browse to the NMOS Controller
 ```
-http://nmos-registry.local:8010/admin
+http://nmos-registry.local/admin
 ```
 
 Browse to the AMWA NMOS Testing Tool
 ```
-http://nmos-testing.local:5000
+http://nmos-testing.local:5000/
 ```
 
-Browse to the JSON Output of the NMOS Registry
+Browse to the APIs of the NMOS Registry
 ```
-http://nmos-registry.local:8010/x-nmos
+http://nmos-registry.local/x-nmos
 ```
 
-Browse to the JSON Output of the NMOS Node
+Browse to the APIs of the NMOS Node
 ```
-http://nmos-virtnode.local:11000/x-nmos
+http://nmos-virtnode.local/x-nmos
 ```
 
 ### Needs more work to briefly explain what can/can't be done and the use of the "registration.sh" script to disable the nmos-registry so that the testing tool can be used to test the nmos-virtnode

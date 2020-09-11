@@ -3,7 +3,7 @@
 "logging_level": -20,
 "http_trace": false,
 "label": "easy-nmos-registry",
-"http_port": 8010,
-"query_ws_port": 8011,
+"http_port": 80,
+"query_ws_port": 81,
 "registration_expiry_interval": 12
 }
