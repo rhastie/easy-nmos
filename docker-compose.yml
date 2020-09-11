@@ -54,7 +54,7 @@ services:
     ports:
     - "5000:5000"
     volumes:
-    - "./Config.py:/config/Config.py"
+    - "./UserConfig.py:/config/UserConfig.py"
     networks:
 # Temporary WA - Force container to only have a single interface so mDNS advertisements test correctly - See: https://github.com/AMWA-TV/nmos-testing/issues/214
 #     private-nmos:
