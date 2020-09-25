@@ -1,6 +1,12 @@
 # Easy-NMOS Docker Compose Solution - INCOMPLETE INSTRUCTIONS
 
-Currently only works on Linux (not Windows / Mac) due to the use of the macvlan driver to expose the container IP addresses - I'm looking at potentially using a network bridge to alleviate this issue but that requires some further work.
+This starter kit allows to spawn a simple NMOS setup with minimal installation steps. It is composed of:
+
+- [nmos-cpp](https://github.com/sony/nmos-cpp) implementation of a NMOS Registry
+- nmos-cpp implementation of a Virtual Node which should register
+- [nmos-testing](https://github.com/AMWA-TV/nmos-testing) suite
+
+All you need is a Linux host (Windows and Mac soon), with recent version docker & docker compose.
 
 ## Brief installation instructions (needs further work)
 ### 0. Clone this repository locally or download and unpack the [archive](https://github.com/rhastie/easy-nmos/archive/master.zip)
@@ -59,6 +65,8 @@ section
 ### 3. Start Docker Compose to start Easy NMOS
 You should just be able to `docker-compose up` and then access the relevant host IP address and port
 
+Later, you may ensure to keep the docker images up-to-date, just `docker-compose pull` before the `up`.
+
 ## Quick Start Guide
 ### Default Ports and mDNS hostnames
 Default Container mDNS hostnames:
@@ -98,3 +106,7 @@ http://nmos-virtnode.local/x-nmos
 ```
 
 ### Needs more work to briefly explain what can/can't be done and the use of the "registration.sh" script to disable the nmos-registry so that the testing tool can be used to test the nmos-virtnode
+
+## Next
+
+- find Windows and Mac equivalent for `macvlan` driver in order to connect to LAN network
