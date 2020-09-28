@@ -1,14 +1,14 @@
 # Easy-NMOS Docker Compose Solution - INCOMPLETE INSTRUCTIONS
 
-This starter kit allows to spawn a simple NMOS setup with minimal installation steps. It is composed of:
+This starter kit allows the user to launch a simple NMOS setup with minimal installation steps. It is composed of:
 
-- [nmos-cpp](https://github.com/sony/nmos-cpp) implementation of a NMOS Registry
-- nmos-cpp implementation of a Virtual Node which should register
-- [nmos-testing](https://github.com/AMWA-TV/nmos-testing) suite
+- [nmos-cpp](https://github.com/sony/nmos-cpp) implementation of a AMWA NMOS Registry
+- [nmos-cpp](https://github.com/sony/nmos-cpp) implementation of a AMWA NMOS Virtual Node which should automatically register
+- [AMWA nmos-testing](https://github.com/AMWA-TV/nmos-testing) suite
 
-All you need is a Linux host (Windows and Mac soon), with recent version docker & docker compose.
+All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of docker and docker compose installed.
 
-## Brief installation instructions (needs further work)
+## Brief installation instructions
 ### 0. Clone this repository locally or download and unpack the [archive](https://github.com/rhastie/easy-nmos/archive/master.zip)
 
 ### 1. Install Docker and Docker Compose
@@ -65,7 +65,7 @@ section
 ### 3. Start Docker Compose to start Easy NMOS
 You should just be able to `docker-compose up` and then access the relevant host IP address and port
 
-Later, you may ensure to keep the docker images up-to-date, just `docker-compose pull` before the `up`.
+In order to ensure you keep the docker images up-to-date, just `docker-compose pull` before the `docker-compose up`.
 
 ## Quick Start Guide
 ### Default Ports and mDNS hostnames
@@ -105,8 +105,9 @@ Browse to the APIs of the NMOS Node
 http://nmos-virtnode.local/x-nmos
 ```
 
-### Needs more work to briefly explain what can/can't be done and the use of the "registration.sh" script to disable the nmos-registry so that the testing tool can be used to test the nmos-virtnode
 
-## Next
+## Next steps for this project
 
-- find Windows and Mac equivalent for `macvlan` driver in order to connect to LAN network
+- Identify a Windows and Mac equivalent for `macvlan` driver in order to connect to LAN network
+- Expand the README.md file to explain what can/can't be done with easy-nmos
+- Expand the README.md to explain the use of the "registration.sh" script to disable the nmos-registry so that the testing tool can be used to test the nmos-virtnode - Current work-around is to use `docker-compose stop nmos-registry`
