@@ -1,8 +1,14 @@
 # Easy-NMOS Docker Compose Solution - INCOMPLETE INSTRUCTIONS
 
-Currently only works on Linux (not Windows / Mac) due to the use of the macvlan driver to expose the container IP addresses - I'm looking at potentially using a network bridge to alleviate this issue but that requires some further work.
+This starter kit allows the user to launch a simple NMOS setup with minimal installation steps. It is composed of:
 
-## Brief installation instructions (needs further work)
+- one host with an NMOS Registry (from [nmos-cpp](https://github.com/sony/nmos-cpp))
+- another host with a virtual NMOS Node (from [nmos-cpp](https://github.com/sony/nmos-cpp)) which should automatically register
+- a third host running the [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing)
+
+All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of [Docker](https://docs.docker.com/engine) and [Docker Compose](https://docs.docker.com/compose/) installed. Alternatively, you can run the implementation inside a Linux virtual machine.
+
+## Brief installation instructions
 ### 0. Clone this repository locally or download and unpack the [archive](https://github.com/rhastie/easy-nmos/archive/master.zip)
 
 ### 1. Install Docker and Docker Compose
@@ -23,6 +29,8 @@ section
 
 ### 3. Start Docker Compose to start Easy NMOS
 You should just be able to `docker-compose up` and then access the relevant host IP address and port
+
+In order to ensure you keep the docker images up-to-date, just `docker-compose pull` before the `docker-compose up`.
 
 ## Quick Start Guide
 ### Default Ports and mDNS hostnames
@@ -58,4 +66,9 @@ Browse to the APIs of the NMOS Node
 http://nmos-virtnode.local/x-nmos
 ```
 
-### Needs more work to briefly explain what can/can't be done and the use of the "registration.sh" script to disable the nmos-registry so that the testing tool can be used to test the nmos-virtnode
+
+## Next steps for this project
+
+- Identify a Windows and Mac equivalent for `macvlan` driver in order to connect to LAN network
+- Expand the README.md file to explain what can/can't be done with easy-nmos
+- Expand the README.md to explain the use of the "registration.sh" script to disable the nmos-registry so that the testing tool can be used to test the nmos-virtnode - Current work-around is to use `docker-compose stop nmos-registry`
