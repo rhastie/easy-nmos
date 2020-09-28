@@ -62,11 +62,11 @@ You should just be able to `docker-compose up` and then access the relevant host
 ## Quick Start Guide
 ### Default Ports and mDNS hostnames
 
-| Service | mDNS names | Opened ports |
+| Services | mDNS name | Opened ports |
 |---|---|---|
-| NMOS Registry/Controller/MQTT Broker | nmos-registry.local | 80, 81 (ws), 1883(MQTT) |
-| NMOS Virtual Node                    | nmos-virtnode.local | 80, 81 (web) |
-| AMWA NMOS Testing Tool               | nmos-testing.local  | 5000 |
+| NMOS Registry/Controller/MQTT Broker | nmos-registry.local | 80 (HTTP), 81 (WebSocket), 1883 (MQTT) |
+| NMOS Virtual Node                    | nmos-virtnode.local | 80 (HTTP), 81 (WebSocket) |
+| AMWA NMOS Testing Tool               | nmos-testing.local  | 5000 (HTTP) |
 
 These values appears in "docker-compose.yml", "registry.json" and "node.json".
 
