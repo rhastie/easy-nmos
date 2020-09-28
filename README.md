@@ -7,7 +7,7 @@ Currently only works on Linux (not Windows / Mac) due to the use of the macvlan 
 
 ### 1. Install Docker and Docker Compose
 
-Follow [short instructions.](./install_docker.md)
+Follow the [short instructions](./install_docker.md).
 
 ### 2. Configure Compose IP addresses for your environment
 You will need 3 unused IP addresses that all reside in the same subnet as the host IP address. The docker-compose script by default starts all the containers with an external facing IP addresses so that they are easily accessible from your LAN
