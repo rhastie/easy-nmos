@@ -6,7 +6,7 @@ This starter kit allows the user to launch a simple NMOS setup with minimal inst
 - another host with a virtual NMOS Node (from [nmos-cpp](https://github.com/sony/nmos-cpp)) which should automatically register
 - a third host running the [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing)
 
-All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of docker and docker compose installed. Alternatively, you can run implementation inside a Linux virtual machine.
+All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of [Docker](https://docs.docker.com/engine) and [Docker Compose](https://docs.docker.com/compose/) installed. Alternatively, you can run the implementation inside a Linux virtual machine.
 
 ## Brief installation instructions
 ### 0. Clone this repository locally or download and unpack the [archive](https://github.com/rhastie/easy-nmos/archive/master.zip)
