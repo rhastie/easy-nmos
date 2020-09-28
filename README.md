@@ -26,18 +26,14 @@ You should just be able to `docker-compose up` and then access the relevant host
 
 ## Quick Start Guide
 ### Default Ports and mDNS hostnames
-Default Container mDNS hostnames:
 
-- NMOS Registry/Controller/MQTT Broker - Use "nmos-registry.local"
-- NMOS Virtual Node - Use "nmos-virtnode.local"
-- AMWA NMOS Testing Tool - Use "nmos-testing.local"
+| Services | mDNS name | Opened ports |
+|---|---|---|
+| NMOS Registry/Controller/MQTT Broker | nmos-registry.local | 80 (HTTP), 81 (WebSocket), 1883 (MQTT) |
+| NMOS Virtual Node                    | nmos-virtnode.local | 80 (HTTP), 81 (WebSocket) |
+| AMWA NMOS Testing Tool               | nmos-testing.local  | 5000 (HTTP) |
 
-Default Ports that are opened:
-
-- NMOS Registry/Controller on port 80
-- NMOS Virtual Node on port 80
-- AMWA NMOS Testing Tool on port 5000
-- MQTT Broker on port 1883
+These values appears in "docker-compose.yml", "registry.json" and "node.json".
 
 ### How to Browse to respective NMOS services and tools
 Assuming your client device is correctly supporting mDNS and is on the same LAN as the host running the containers you should be able to use the mDNS hostnames. If this does not work please try the respective IP addresses etc.
