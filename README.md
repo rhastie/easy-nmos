@@ -1,10 +1,10 @@
 # Easy-NMOS Docker Compose Solution
 
-This starter kit allows the user to launch a simple NMOS setup with minimal installation steps. It is composed of 3 Docker containers:
+This starter kit allows the user to launch a simple NMOS setup with minimal installation steps. It is composed of three Docker containers:
 
-- a NMOS Registry (from [nmos-cpp](https://github.com/sony/nmos-cpp))
-- a Virtual NMOS Node (from [nmos-cpp](https://github.com/sony/nmos-cpp)) which should automatically register
-- a test suite (from [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing))
+- an NMOS Registry (from [nmos-cpp](https://github.com/sony/nmos-cpp))
+- a virtual NMOS Node (from [nmos-cpp](https://github.com/sony/nmos-cpp)) which should automatically register
+- the [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing)
 
 All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of [Docker](https://docs.docker.com/engine) and [Docker Compose](https://docs.docker.com/compose/) installed. Alternatively, you can run the implementation inside a Linux virtual machine.
 
@@ -18,7 +18,7 @@ Follow the [short instructions](./install_docker.md).
 
 ### 2. Configure Compose IP addresses for your environment
 
-You will need 3 unused IP addresses that all reside in the same subnet as the host IP address. The docker-compose script by default starts all the containers with an external facing IP addresses so that they are easily accessible from your LAN.
+You will need 3 unused IP addresses that all reside in the same subnet as the host IP address. The docker-compose script by default starts all the containers with externally facing IP addresses so that they are easily accessible from your LAN.
 
 Configure the following inside the "docker-compose.yml" file
 - Set a valid IP address for the NMOS Registry/Controller to be exposed on. Replace 192.168.6.101 with something unused and appropriate in the "Create nmos-registry container instance" section
