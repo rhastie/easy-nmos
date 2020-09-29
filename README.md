@@ -6,7 +6,7 @@ This starter kit allows the user to launch a simple NMOS setup with minimal inst
 - a virtual NMOS Node (from [nmos-cpp](https://github.com/sony/nmos-cpp)) which should automatically register
 - the [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing)
 
-All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of [Docker](https://docs.docker.com/engine) and [Docker Compose](https://docs.docker.com/compose/) installed. Alternatively, you can run the implementation inside a Linux virtual machine.
+All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of [Docker](https://docs.docker.com/engine) and [Docker Compose](https://docs.docker.com/compose/) installed. Alternatively, you can run the implementation inside a Linux virtual machine on any platform.
 
 ## Brief installation instructions
 
@@ -29,7 +29,7 @@ section
 - Adjust the external subnet to use. Replace the "subnet: 192.168.6.0/24" so that it correctly sets the subnet for the IP addresses you've defined above in the "external" section at the end of the file
 - Note: In order for the Node to be correctly accessible the IP address specified must be different to the host IP address
 
-### 3. Start Docker Compose to start Easy NMOS
+### 3. Start Docker Compose to start Easy-NMOS
 
 You should just be able to `docker-compose up` and then access the relevant host IP address and port.
 
