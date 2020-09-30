@@ -1,5 +1,5 @@
 {
-"pri": 10,
+"pri": 99,
 "logging_level": -20,
 "http_trace": false,
 "label": "easy-nmos-registry",

@@ -7,6 +7,7 @@ services:
     image: rhastie/nmos-cpp:latest
     container_name: nmos-registry
     hostname: nmos-registry
+    domainname: local
     ports:
     - "80-81:80-81"
     - "1883:1883"
@@ -15,8 +16,6 @@ services:
     environment:
     - RUN_NODE=FALSE
     networks: 
-      private-nmos:
-        ipv4_address: '172.30.101.3'
       external:
         ipv4_address: '192.168.6.101'
 
@@ -25,6 +24,7 @@ services:
     image: rhastie/nmos-cpp:latest
     container_name: nmos-virtnode
     hostname: nmos-virtnode
+    domainname: local
     ports:
     - "80-81:80-81"
     volumes:
@@ -32,8 +32,6 @@ services:
     environment:
     - RUN_NODE=TRUE
     networks:
-      private-nmos:
-        ipv4_address: '172.30.101.4'
       external:
         ipv4_address: '192.168.6.102'
     depends_on:
@@ -41,24 +39,19 @@ services:
 
   # Create AMWA NMOS Testing container instance
   nmos-testing:
-    image: amwa/nmos-testing
+    image: amwa/nmos-testing:latest
     container_name: nmos-testing
     hostname: nmos-testing
+    domainname: local
     entrypoint: |
-      /bin/sh -c "apk add avahi dbus;
-      dbus-uuidgen > /var/lib/dbus/machine-id;
-      mkdir -p /var/run/dbus;
-      dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address;
-      avahi-daemon -D;
-      python3 nmos-test.py"
+       /bin/bash -c "/etc/init.d/dbus start;
+       /etc/init.d/avahi-daemon start;
+       python3 nmos-test.py"
     ports:
     - "5000:5000"
     volumes:
     - "./UserConfig.py:/config/UserConfig.py"
     networks:
-# Temporary WA - Force container to only have a single interface so mDNS advertisements test correctly - See: https://github.com/AMWA-TV/nmos-testing/issues/214
-#     private-nmos:
-#       ipv4_address: '172.30.101.5'
       external:
         ipv4_address: '192.168.6.103'
     depends_on:
@@ -66,12 +59,6 @@ services:
 
 
 networks:
-    private-nmos:
-        # Create private network for inter-container NMOS communications
-        driver: bridge
-        ipam:
-            config:
-            - subnet: 172.30.101.1/24
     external:
         # Create external macvlan subnet using host physical interface allowing containers to have their own IP addresses
         driver: macvlan
