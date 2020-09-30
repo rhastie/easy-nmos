@@ -8,6 +8,11 @@ This starter kit allows the user to launch a simple NMOS setup with minimal inst
 
 All you need is a Linux host (Windows and Mac hopefully coming soon), with a recent version of [Docker](https://docs.docker.com/engine) and [Docker Compose](https://docs.docker.com/compose/) installed. Alternatively, you can run the implementation inside a Linux virtual machine on any platform.
 
+Finally, if you want/need access to the build instructions for these containers you can use the following links:
+
+- [nmos-cpp](https://github.com/rhastie/build-nmos-cpp) container from NVIDIA
+- [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing) container from AMWA
+
 ## Brief installation instructions
 
 ### 0. Clone this repository locally or download and unpack the [archive](https://github.com/rhastie/easy-nmos/archive/master.zip)
