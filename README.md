@@ -76,6 +76,59 @@ Browse to the APIs of the NMOS Node
 http://nmos-virtnode.local/x-nmos
 ```
 
+## Advanced usage
+
+### Configuration for routed networks
+
+Out of the box, docker-compose v3.x does not support syntax for the addition of default gateways as documented [here](https://docs.docker.com/compose/compose-file/compose-file-v3/#note-additional-ipam-configurations-such-as-gateway-are-only-honored-for-version-2-at-the-moment).
+
+A solution is to create the macvlan network outside of docker-compose, and then reference the network in the docker-compose.yml manifest file. Docker (different to docker-compose) allows the creation of a macvlan network with a default gateway, for off subnet and internet connectivity. You can create the macvlan network using the following command:
+
+~~~
+docker network create -d macvlan \   
+--subnet=192.168.6.0/24 \
+--gateway=192.168.6.1 \
+-o parent=enp0s3 nmos_mac_vlan
+~~~
+
+The subnet and parent are unique to your system, see step 2 in the brief installation instructions above. The gateway is the address of the router that will forward/receive traffic to/from remote networks. 
+
+You can use "docker network ls" to verify that the macvlan network is created:
+
+~~~
+docker network ls                 
+NETWORK ID     NAME                    DRIVER    SCOPE
+7399d0e2639c   bridge                  bridge    local
+d1f4218115ba   host                    host      local
+80aba987d32c   nmos_mac_vlan           macvlan   local
+c387a789c9f4   none                    null      local
+~~~
+
+You can now edit the docker-compose.yml file to reference the external network rather than create a new one. To do this, remove the following section:
+
+~~~
+networks:
+    external:
+        # Create external macvlan subnet using host physical interface allowing containers to have their own IP addresses
+        driver: macvlan
+        driver_opts:
+            parent: enp0s8
+        ipam:
+            config:
+            - subnet: 192.168.6.0/24
+~~~
+
+and replace with:
+
+~~~
+networks:
+    external:
+        name: nmos_mac_vlan
+        external: true
+~~~
+
+The IP addresses of the individual services must also be set appropriatley, see step 2 of the brief installation instructions section above.
+
 ## Next steps for this project
 
 - Identify a Windows and Mac equivalent for `macvlan` driver in order to connect to LAN network
