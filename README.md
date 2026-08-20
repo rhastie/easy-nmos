@@ -3,8 +3,8 @@
 This starter kit allows the user to launch a simple NMOS setup with minimal installation steps. It is composed of five Docker containers:
 
 - an NMOS Registry (from [nmos-cpp](https://github.com/sony/nmos-cpp))
-- the NMOS Connection API Bridge adapter (from [nmos-js](https://github.com/sony/nmos-js))
-- Envoy, which provides the NMOS Connection API Bridge endpoint
+- the NMOS Bridge adapter (from [nmos-js](https://github.com/sony/nmos-js))
+- Envoy, which provides the NMOS Bridge endpoint
 - a virtual NMOS Node (from [nmos-cpp](https://github.com/sony/nmos-cpp)) which should automatically register
 - the [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing)
 
@@ -13,7 +13,7 @@ All you need is a Linux host (Windows and Mac hopefully coming soon), with a rec
 Finally, if you want/need access to the build instructions for these containers you can use the following links:
 
 - [nmos-cpp](https://github.com/rhastie/build-nmos-cpp) container from NVIDIA
-- [nmos-js Connection API Bridge](https://github.com/sony/nmos-js/tree/master/ConnectionBridge) adapter
+- [nmos-js NMOS Bridge](https://github.com/sony/nmos-js/tree/master/nmos-bridge) adapter
 - [Envoy](https://www.envoyproxy.io/docs/envoy/latest/start/docker) container
 - [AMWA NMOS Testing Tool](https://github.com/AMWA-TV/nmos-testing) container from AMWA
 
@@ -32,9 +32,9 @@ You will need five unused IP addresses that all reside in the same subnet as the
 Configure the following inside the "docker-compose.yml" file
 - Set a valid IP address for the NMOS Registry/Controller to be exposed on. Replace 192.168.6.101 with something unused and appropriate in the "Create nmos-registry container instance" section
 - Set a valid IP address for the NMOS Virtual Node to be exposed on. Replace 192.168.6.102 with something unused and appropriate in the "Create nmos-virtnode container instance" section
-- Set a valid IP address for the Connection API Bridge (Envoy) to be exposed on. Replace 192.168.6.104 in the "nmos-connection-bridge" service section
-- Set a valid IP address for the bridge adapter. Replace 192.168.6.105 in the "nmos-connection-bridge-adapter" service section
-- Configure `REGISTRY_QUERY_URL` and `APP_URL` as described in the [Connection API Bridge documentation](https://github.com/sony/nmos-js/tree/master/ConnectionBridge#running). Both use the Registry IP above in this deployment (default `http://192.168.6.101`)
+- Set a valid IP address for the NMOS Bridge (Envoy) to be exposed on. Replace 192.168.6.104 in the "nmos-bridge" service section
+- Set a valid IP address for the bridge adapter. Replace 192.168.6.105 in the "nmos-bridge-adapter" service section
+- Configure `REGISTRY_QUERY_URL` and `APP_URL` as described in the [NMOS Bridge documentation](https://github.com/sony/nmos-js/tree/master/nmos-bridge#running). Both use the Registry IP above in this deployment (default `http://192.168.6.101`)
 - Set a valid IP address for the AMWA NMOS Testing Tool to be exposed on. Replace 192.168.6.103 with something unused and appropriate in the "Create nmos-testing container instance"
 section
 - Adjust the network interface to use your specific host interface. Replace the "parent: ens33" to match your external facing interface in the "external" section at the end of the file
@@ -55,7 +55,7 @@ In order to ensure you keep the docker images up-to-date, just `docker-compose p
 |---|---|---|
 | NMOS Registry/Controller/MQTT Broker | nmos-registry.local | 80 (HTTP), 81 (WebSocket), 1883 (MQTT) |
 | NMOS Virtual Node                    | nmos-virtnode.local | 80 (HTTP), 81 (WebSocket) |
-| Connection API Bridge (Envoy)        | (not advertised via mDNS) | 8080 (HTTP) |
+| NMOS Bridge (Envoy)                  | (not advertised via mDNS) | 8080 (HTTP) |
 | AMWA NMOS Testing Tool               | nmos-testing.local  | 5000 (HTTP) |
 
 These values appear in `docker-compose.yml`, `registry.json` and `node.json`.
@@ -69,17 +69,17 @@ Browse to the NMOS Controller (directly on the NMOS Registry)
 http://nmos-registry.local/admin
 ```
 
-Browse to the NMOS Controller through the Connection API Bridge (preferred when utilizing the Connection API bridge):
+Browse to the NMOS Controller through the NMOS Bridge (preferred when utilizing the NMOS Bridge):
 ```
 http://192.168.6.104:8080/admin
 ```
 
-With the NMOS Controller loaded from that origin, Query API and Connection Bridge API default to the same host — in Settings → Advanced, set Connection Bridge Mode to Forced (or Auto). Leave the API URL fields at their defaults.
-If you instead open the Registry `/admin` directly, set Connection Bridge API to `http://192.168.6.104:8080/x-nmos-bridge/v1.0` as well.
+With the NMOS Controller loaded from that origin, Query API and NMOS Bridge API default to the same host — in Settings → Advanced, set NMOS Bridge Mode to Forced (or Auto). Leave the API URL fields at their defaults.
+If you instead open the Registry `/admin` directly, set NMOS Bridge API to `http://192.168.6.104:8080/x-nmos-bridge/v1.0` as well.
 
-Replace `192.168.6.104` with the Connection API Bridge IP address configured in `docker-compose.yml`.
+Replace `192.168.6.104` with the NMOS Bridge IP address configured in `docker-compose.yml`.
 
-The bridge adapter and Envoy are described in [nmos-connection-bridge/README.md](nmos-connection-bridge/README.md).
+The bridge adapter and Envoy are described in [nmos-bridge/README.md](nmos-bridge/README.md).
 
 Browse to the AMWA NMOS Testing Tool
 ```
