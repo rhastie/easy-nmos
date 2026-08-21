@@ -19,12 +19,11 @@ services:
       external:
         ipv4_address: '192.168.6.101'
 
-  # Create NMOS Connection API Bridge adapter container instance
-  nmos-connection-bridge-adapter:
+  # Create NMOS Bridge adapter container instance
+  nmos-bridge-adapter:
     build:
-      # See https://github.com/sony/nmos-js/pull/171
-      context: https://github.com/sony/nmos-js.git#7cb808218d059fb59b11b0be579437d55756d0e6:ConnectionBridge/adapter
-    container_name: nmos-connection-bridge-adapter
+      context: https://github.com/sony/nmos-js.git#182b3722cc9de04b2cb5ba60d1a09d5cf733bf30:nmos-bridge/adapter
+    container_name: nmos-bridge-adapter
     restart: unless-stopped
     environment:
       REGISTRY_QUERY_URL: http://192.168.6.101/x-nmos/query/v1.3
@@ -37,22 +36,22 @@ services:
     depends_on:
       - nmos-registry
 
-  # Create NMOS Connection API Bridge (Envoy) container instance
-  nmos-connection-bridge:
+  # Create NMOS Bridge (Envoy) container instance
+  nmos-bridge:
     image: envoyproxy/envoy:v1.31-latest
-    container_name: nmos-connection-bridge
-    hostname: nmos-connection-bridge
+    container_name: nmos-bridge
+    hostname: nmos-bridge
     domainname: local
     restart: unless-stopped
     volumes:
-      - ./nmos-connection-bridge/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
-      - ./nmos-connection-bridge/envoy/location_rewrite.lua:/etc/envoy/location_rewrite.lua:ro
+      - ./nmos-bridge/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - ./nmos-bridge/envoy/location_rewrite.lua:/etc/envoy/location_rewrite.lua:ro
       - envoy-dynamic:/etc/envoy/dynamic
     networks:
       external:
         ipv4_address: '192.168.6.104'
     depends_on:
-      - nmos-connection-bridge-adapter
+      - nmos-bridge-adapter
 
   # Create NMOS Virtual Node container instance
   nmos-virtnode:
