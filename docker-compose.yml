@@ -22,7 +22,7 @@ services:
   # Create NMOS Bridge adapter container instance
   nmos-bridge-adapter:
     build:
-      context: https://github.com/sony/nmos-js.git#182b3722cc9de04b2cb5ba60d1a09d5cf733bf30:nmos-bridge/adapter
+      context: https://github.com/sony/nmos-js.git#0c361b69beedbbb783bd57cb935588f1e311adfd:nmos-bridge/adapter
     container_name: nmos-bridge-adapter
     restart: unless-stopped
     environment:
